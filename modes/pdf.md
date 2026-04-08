@@ -90,13 +90,177 @@ Usar el template en `cv-template.html`. Reemplazar los placeholders `{{...}}` co
 | `{{SECTION_SKILLS}}` | Skills / Competencias |
 | `{{SKILLS}}` | HTML de skills |
 
+## Choosing a Generation Method
+
+Before generating, check `config/profile.yml` for available methods and offer accordingly:
+
+- **Always available:** `"HTML/PDF (fast, ATS-optimized)"` — existing flow above
+- **If `typst_resume_dir` is set:** `"Typst CV (polished typesetting, visual)"` — see Typst flow below
+- **If `canva_resume_design_id` is set:** `"Canva CV (visual, design-preserving)"` — see Canva flow below
+
+If neither optional method is configured, skip the prompt and use the HTML/PDF flow.
+
+## Typst CV Generation (optional)
+
+If `config/profile.yml` has `typst_resume_dir` set, the Typst workflow is available.
+
+### Typst workflow
+
+#### Step 1 — Resolve paths
+
+Read `typst_resume_dir` from `config/profile.yml` (relative to `career-ops/`).
+- `template_path` = `{typst_resume_dir}/template.typ` (absolute path)
+- `font_path` = `{typst_resume_dir}/assets/fonts`
+- `output_typ` = `/tmp/cv-{company-slug}.typ`
+- `output_pdf` = `output/cv-{candidate}-{company}-typst-{YYYY-MM-DD}.pdf`
+
+#### Step 2 — Generate tailored content
+
+Same content pipeline as HTML/PDF (Steps 1-11 in the main flow):
+- Extract JD keywords, detect language, detect archetype
+- Rewrite Professional Summary with keywords + narrative
+- Select top 3-4 most relevant projects
+- Reorder experience bullets by JD relevance
+- Build competency grid from JD requirements
+
+#### Step 3 — Write the .typ file
+
+Generate `/tmp/cv-{company-slug}.typ` using this structure:
+
+```typst
+#import "{absolute_path_to_template.typ}": *
+
+#set page(
+  margin: (
+    left: 8mm,
+    right: 8mm,
+    top: 8mm,
+    bottom: 8mm
+  ),
+)
+
+#set text(font: "Mulish")
+
+#show: project.with(
+  theme: rgb("#0F83C0"),
+  name: "{CANDIDATE_NAME}",
+  contact: (
+    contact(text: "linkedin.com/in/{LINKEDIN_SLUG}", link: "{LINKEDIN_URL}"),
+    contact(text: "github.com/{GITHUB_USERNAME}", link: "{GITHUB_URL}"),
+    contact(text: "{EMAIL}", link: "mailto:{EMAIL}"),
+    // Add portfolio if set in profile.yml
+  ),
+  main: (
+    section(
+      title: "Professional Summary",
+      content: (
+        subSection(
+          title: "",
+          content: [
+            {TAILORED_SUMMARY_TEXT}
+          ],
+        ),
+      ),
+    ),
+    section(
+      title: "Core Competencies",
+      content: (
+        subSection(
+          title: "",
+          content: [
+            {COMPETENCY_1} • {COMPETENCY_2} • {COMPETENCY_3} • {COMPETENCY_4} • {COMPETENCY_5} • {COMPETENCY_6}
+          ],
+        ),
+      ),
+    ),
+    section(
+      title: "Experience",
+      content: (
+        // One subSection per role, most recent first
+        subSection(
+          title: "{COMPANY_NAME}",
+          titleEnd: "{LOCATION}",
+          subTitle: "{JOB_TITLE}",
+          subTitleEnd: "({START_DATE} – {END_DATE})",
+          content: list(
+            [{BULLET_1}],
+            [{BULLET_2}],
+            [{BULLET_3}],
+          ),
+        ),
+        // ... more roles
+      ),
+    ),
+    section(
+      title: "Projects",
+      content: (
+        // Top 3-4 most relevant projects
+        subSection(
+          title: "{PROJECT_NAME}",
+          subTitle: "{TECH_STACK}",
+          content: [
+            {PROJECT_DESCRIPTION_WITH_JD_KEYWORDS}
+          ],
+        ),
+        // ... more projects
+      ),
+    ),
+    section(
+      title: "Education",
+      content: (
+        subSection(
+          title: "{INSTITUTION}",
+          titleEnd: "{LOCATION}",
+          subTitle: "{DEGREE}",
+          subTitleEnd: "({YEAR_START} – {YEAR_END})",
+          content: [],
+        ),
+      ),
+    ),
+    section(
+      title: "Skills",
+      content: (
+        subSection(
+          title: "",
+          content: [
+            *Languages:* {LANGUAGES} \
+            *Frameworks:* {FRAMEWORKS} \
+            *Tools:* {TOOLS}
+          ],
+        ),
+      ),
+    ),
+  ),
+  sidebar: (),
+)
+```
+
+**Rules for .typ content:**
+- Use only content from `cv.md` — NEVER invent experience or skills
+- Inject JD keywords naturally into existing bullet text (same ethics as HTML/PDF flow)
+- Keep sidebar empty `()` for ATS compatibility (single-column layout)
+- Use `#list([...], [...])` for bullet points inside subSection content
+- Escape special typst characters in text: `#`, `@`, `<`, `>` with `\` prefix
+
+#### Step 4 — Compile to PDF
+
+```bash
+node generate-typst-resume.mjs /tmp/cv-{company-slug}.typ output/cv-{candidate}-{company}-typst-{YYYY-MM-DD}.pdf --font-path="{absolute_font_path}"
+```
+
+If typst is not installed, inform the user:
+> "typst CLI is required for this option. Install it with: `brew install typst` (macOS) or visit typst.app"
+> Then fall back to HTML/PDF flow.
+
+#### Step 5 — Report
+
+Report: PDF path, file size. Update tracker if the offer is already registered (PDF ❌ → ✅).
+
+---
+
 ## Canva CV Generation (optional)
 
-If `config/profile.yml` has `canva_resume_design_id` set, offer the user a choice before generating:
-- **"HTML/PDF (fast, ATS-optimized)"** — existing flow above
-- **"Canva CV (visual, design-preserving)"** — new flow below
-
-If the user has no `canva_resume_design_id`, skip this prompt and use the HTML/PDF flow.
+If `config/profile.yml` has `canva_resume_design_id` set (and user chose Canva in the method prompt above), proceed with the Canva flow below.
 
 ### Canva workflow
 

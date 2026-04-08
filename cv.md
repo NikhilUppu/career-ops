@@ -29,12 +29,12 @@ Apr 2024 – Jan 2025
 
 **Software Engineer** | Kriya Global IT Services, Bengaluru
 May 2022 – Sep 2023
-- Architected and delivered 15+ production microservices using Spring Boot, REST, Hibernate, and Kafka reducing real-time data processing latency by 60% and directly improving SLA compliance for 3 enterprise clients handling 1M+ daily transactions
-- Reduced code review turnaround time by 40% by integrating SonarQube static analysis and automated quality gates into the CI pipeline, standardizing code health metrics across a 6-engineer team and eliminating entire categories of bugs before review
-- Owned a full database layer across MySQL — designed schemas, wrote optimized queries, and built a Spring JDBC/Hibernate abstraction layer that cut average DB query time by 40% and eliminated N+1 issues across 6 critical service endpoints
-- Drove cognitive complexity down 95% across 50,000+ lines of the codebase by establishing team-wide coding standards, conducting 200+ code reviews, and running onboarding workshops for 4 junior engineers over 3 years
-- Built and maintained end-to-end test coverage (JUnit, Mockito, SpringTest) for a payment-critical service, catching 100% of regressions pre-production and reducing QA cycle time by 50% across MySQL and MongoDB data layers
-- Collaborated with product and DevOps teams to scope, estimate, and ship 3 major feature releases on schedule across a 12-month roadmap, contributing to a client contract renewal worth $60K
+- Architected and delivered 15+ production microservices in a large distributed computing environment using Spring Boot, Kafka, and REST — reducing real-time data processing latency by 60% and improving SLA compliance for 3 enterprise clients handling 1M+ daily transactions
+- Reduced code review turnaround time by 40% by integrating SonarQube static analysis and automated quality gates into the CI/CD pipeline, enforcing coding standards and SDLC best practices across an agile 6-engineer team and eliminating entire categories of bugs before review
+- Owned the full database layer across MySQL (SQL) — designed schemas, wrote optimized queries, and built a Spring JDBC/Hibernate abstraction layer that cut average DB query time by 40% and eliminated N+1 issues across 6 critical service endpoints
+- Improved code maintainability by establishing team-wide design patterns and coding standards, conducting 200+ code reviews, and mentoring 4 junior engineers — reducing cognitive complexity by 95% across 50,000+ lines of production code
+- Built and maintained end-to-end automated test coverage (JUnit, Mockito, SpringTest) for a payment-critical service, catching 100% of pre-production regressions and reducing QA cycle time by 50% — ensuring operational reliability across both SQL (MySQL) and NoSQL (MongoDB) data layers
+- Collaborated cross-functionally with product and DevOps teams in an agile environment to scope, estimate, and ship 3 major feature releases on schedule — demonstrating operational excellence and contributing to a $60K client contract renewal
 
 ---
 
@@ -42,17 +42,17 @@ May 2022 – Sep 2023
 
 **VijayaSree POS · Full Stack Point of Sale System** | [VijayaSree.com](https://VijayaSreetraders.com)
 *Stack: Java 17, Spring Boot 3.2, Spring Security, JWT, MySQL 8, React 18, Vite, Railway, Vercel, Cloudinary, GitHub Actions*
-- Designed, built, and shipped a production POS solo — replacing paper-based billing at a retail shop and scaling to 10 live business deployments across South India within weeks of launch
-- Accelerated solo development using AI coding agents (Devin, GitHub Copilot, Claude) for boilerplate generation, test scaffolding, and code review — cutting estimated build time by 40% without sacrificing code quality
-- Engineered role-based access control with 19 granular permissions, JWT stateless auth with BCrypt hashing, and login rate-limiting (5 attempts/60s) — production-grade security from day one
-- Designed for scale from the start: HikariCP connection pooling sustains 50+ concurrent DB connections, paginated APIs serve a 10,000+ product catalog without performance degradation, and Cloudinary CDN eliminates all image load from the application server
+- Designed and shipped a cloud-native production POS system solo using cloud platforms (Railway, Vercel, Cloudinary CDN) — replacing paper-based billing and scaling to 10 live business deployments across South India within weeks of launch
+- Leveraged GenAI and AI-powered development tools (GitHub Copilot, Claude, Devin) to enhance development productivity — using AI for boilerplate generation, test scaffolding, and iterative code review, cutting build time by 40% while maintaining production-grade quality
+- Engineered role-based access control with 19 granular permissions, JWT stateless auth with BCrypt hashing, and login rate-limiting (5 attempts/60s) — production-grade security following software engineering best practices from day one
+- Built for resilience and scale: HikariCP connection pooling sustains 50+ concurrent DB connections, paginated APIs serve a 10,000+ product catalog without performance degradation, and Cloudinary CDN offloads all image delivery — demonstrating fault-tolerant, cost-effective architecture
 - Shipped high-value business features: real-time inventory with low-stock alerts, UPI/Cash/Card checkout, customer credit tracking replacing manual ledger books, Excel bulk import via Apache POI, and reducing billing errors to zero
 
 **India Weddings · Matrimonial Platform** | [IndiaWeddings.in](https://IndiaWeddings.in)
 *Stack: Angular, Node.js, Nginx, PM2, AWS EC2/S3*
 - Developed a full-stack matrimonial matchmaking platform using Angular (frontend) and Node.js (backend), serving 50k+ users with secure real-time profile matching
-- Deployed and maintained cloud environments in AWS, achieving 99.9% uptime of Development and Production servers
-- Optimized backend services with PM2 and Nginx, improving response time by 30% and supporting 80k+ API requests
+- Deployed and maintained cloud infrastructure on AWS (EC2, S3), achieving 99.9% uptime across Development and Production environments through proactive monitoring and troubleshooting
+- Optimized backend services with PM2 and Nginx, improving response time by 30% and supporting 80k+ API requests — demonstrating operational excellence in a distributed system
 - Collaborated with a team of 3 to improve user experience, platform scalability, and deliver client-focused features on schedule
 
 **E-Commerce Application**
